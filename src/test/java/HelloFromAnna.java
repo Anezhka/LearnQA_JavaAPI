@@ -6,6 +6,5 @@ public class HelloFromAnna {
 
     public void testHelloFromAnna(){
         System.out.println("Hello from Anna.");
-
     }
 }
