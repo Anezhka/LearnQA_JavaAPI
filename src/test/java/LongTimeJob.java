@@ -2,7 +2,6 @@ import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
 import org.junit.jupiter.api.Test;
 
-
 public class LongTimeJob {
 
     @Test
@@ -15,7 +14,7 @@ public class LongTimeJob {
 
         String responseToken = responseGetWithoutToken.get("token");
         int responseSeconds = responseGetWithoutToken.get("seconds");
-        System.out.println("1. Task has been created.");
+        System.out.println("1. Job has been created.");
 
 
         JsonPath responseGetWithToken = RestAssured
@@ -51,7 +50,6 @@ public class LongTimeJob {
             System.out.println("3. \"status\" field is: " + "\"Job is ready\"" + " and \"result\" field is exist.");
         } else
             System.out.println("Job is not ready");
-
     }
 }
 
