@@ -13,6 +13,9 @@ public class LongRedirect {
                 .follow(false)
                 .when()
                 .get("https://playground.learnqa.ru/api/long_redirect")
+                //.get("https://playground.learnqa.ru/")
+                //.get("https://learnqa.ru/")
+                //.get("https://www.learnqa.ru/")
                 .andReturn();
 
         String locationHeader = response.getHeader("location");
