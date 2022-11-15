@@ -50,6 +50,7 @@ public class LongTimeJob {
             System.out.println("3. \"status\" field is: " + "\"Job is ready\"" + " and \"result\" field is exist.");
         } else
             System.out.println("Job is not ready");
+
     }
 }
 
