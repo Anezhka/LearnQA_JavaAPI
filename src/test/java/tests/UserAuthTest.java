@@ -13,6 +13,13 @@ import org.junit.jupiter.params.provider.ValueSource;
 import java.util.HashMap;
 import java.util.Map;
 
+import io.qameta.allure.Description;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import org.junit.jupiter.api.DisplayName;
+
+@Epic("Authorisation cases")
+@Feature("Authorisation")
 public class UserAuthTest extends BaseTestCase {
     String cookie; // <-- список параметров нужно выносить
     String header;
@@ -38,6 +45,8 @@ public class UserAuthTest extends BaseTestCase {
 
     // в тесте второй запрос и проверки
     @Test
+    @Description("This test successfully authorize user by email and password")
+    @DisplayName("Test positive auth user")
     public void testAuthUser() {
         Response responseCheckAuth = RestAssured
                 .given()
@@ -47,7 +56,8 @@ public class UserAuthTest extends BaseTestCase {
                 .andReturn();
         Assertions.assertJsonByName(responseCheckAuth, "user_id", this.userIdOnAuth);
     }
-
+    @Description("This test checks authorization status w/o sending auth cookie or token")
+    @DisplayName("Test negative auth user")
     @ParameterizedTest
     @ValueSource(strings = {"cookie", "headers"})
     public void testNegativeAuthUser(String condition) {
