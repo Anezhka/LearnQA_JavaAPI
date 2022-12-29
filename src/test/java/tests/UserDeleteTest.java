@@ -1,11 +1,13 @@
 package tests;
 
+import io.qameta.allure.*;
 import io.restassured.response.Response;
 import io.restassured.response.ResponseBody;
 import lib.ApiCoreRequests;
 import lib.Assertions;
 import lib.BaseTestCase;
 import lib.DataGenerator;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
@@ -13,10 +15,16 @@ import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+@Epic("Deletion cases")
+@Feature("Deletion")
 public class UserDeleteTest extends BaseTestCase {
     private final ApiCoreRequests apiCoreRequests = new ApiCoreRequests();
 
     @Test
+    @Owner(value = "Анна Синицына")
+    @Description("This test try to delete admin test user with ID=2")
+    @DisplayName("Test negative deletion admin test user")
+    @Severity(value = SeverityLevel.MINOR)
     public void testDeleteUserWithId2() {
     //LOGIN
     Map<String, String> authData = new HashMap<>();
@@ -41,7 +49,11 @@ public class UserDeleteTest extends BaseTestCase {
         assertTrue(bodyAsString.contains("This is 404 error!"), "Something went wrong. Should be impossible to delete user with id = 2");
     }
 
+    @Description("This test successfully delete just created user")
+    @DisplayName("Test positive deletion just created user")
     @Test
+    @Owner(value = "Анна Синицына")
+    @Severity(value = SeverityLevel.MINOR)
     public void testDeleteJustCreatedUser() {
         //GENERATE USER
         Map<String, String> userData = DataGenerator.getRegistrationData();
@@ -79,7 +91,11 @@ public class UserDeleteTest extends BaseTestCase {
         Assertions.assertJsonHasNotField(responseUserData, "email");
     }
 
+    @Description("This test try to delete user by another auth user")
+    @DisplayName("Test negative deletion by another auth user")
     @Test
+    @Owner(value = "Анна Синицына")
+    @Severity(value = SeverityLevel.CRITICAL)
     public void testNegativeDeleteByAnotherUserAuth() {
         //GENERATE USER FOR DELETE
         Map<String, String> userDetail = DataGenerator.getRegistrationData();

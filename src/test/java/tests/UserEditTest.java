@@ -1,19 +1,28 @@
 package tests;
 
+import io.qameta.allure.*;
 import io.restassured.response.Response;
 import lib.ApiCoreRequests;
 import lib.Assertions;
 import lib.BaseTestCase;
 import lib.DataGenerator;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
 import java.util.Map;
 
+@Epic("Edit cases")
+@Feature("Edit")
+
 public class UserEditTest extends BaseTestCase {
     private final ApiCoreRequests apiCoreRequests = new ApiCoreRequests();
 
+    @Description("This test successfully edit just created user")
+    @DisplayName("Test positive edit just created user")
     @Test
+    @Owner(value = "Анна Синицына")
+    @Severity(value = SeverityLevel.NORMAL)
     public void testEditJustCreatedUser() {
         //GENERATE USER
         Map<String, String> userData = DataGenerator.getRegistrationData();
@@ -52,7 +61,11 @@ public class UserEditTest extends BaseTestCase {
     }
 
     //HOMEWORK
+    @Description("This test try to edit user by not auth user")
+    @DisplayName("Test negative edit by not auth user")
     @Test
+    @Owner(value = "Анна Синицына")
+    @Severity(value = SeverityLevel.CRITICAL)
     public void testEditByNotAuthUser() {
         //GENERATE USER
         Map<String, String> userData = DataGenerator.getRegistrationData();
@@ -73,7 +86,11 @@ public class UserEditTest extends BaseTestCase {
         Assertions.assertResponseTextEquals(responseEditUser, "Auth token not supplied");
     }
 
+    @Description("This test try to edit user by another auth user")
+    @DisplayName("Test negative edit by another auth user")
     @Test
+    @Owner(value = "Анна Синицына")
+    @Severity(value = SeverityLevel.CRITICAL)
     public void testEditAnotherUserAuth() {
         //GENERATE USER FOR EDIT
         Map<String, String> userDetail = DataGenerator.getRegistrationData();
@@ -123,7 +140,11 @@ public class UserEditTest extends BaseTestCase {
          */
     }
 
+    @Description("This test try to edit user with email w/o @")
+    @DisplayName("Test negative edit with email w/o @")
     @Test
+    @Owner(value = "Анна Синицына")
+    @Severity(value = SeverityLevel.MINOR)
     public void testEditJustCreatedTestWithIncorrectEmail(){
         //GENERATE USER
         Map<String, String> userData = DataGenerator.getRegistrationData();
@@ -156,7 +177,11 @@ public class UserEditTest extends BaseTestCase {
         Assertions.assertResponseTextEquals(responseEditUser, "Invalid email format");
     }
 
+    @Description("This test try to edit user with too short first name")
+    @DisplayName("Test negative edit with too short first name")
     @Test
+    @Owner(value = "Анна Синицына")
+    @Severity(value = SeverityLevel.NORMAL)
     public void testEditJustCreatedTestWithTooShortFirstName(){
         //GENERATE USER
         Map<String, String> userData = DataGenerator.getRegistrationData();

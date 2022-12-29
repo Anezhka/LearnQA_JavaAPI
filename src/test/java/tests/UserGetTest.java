@@ -1,20 +1,28 @@
 package tests;
 
+import io.qameta.allure.*;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import lib.Assertions;
 import lib.BaseTestCase;
 import lib.DataGenerator;
 import lib.ApiCoreRequests;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
 import java.util.Map;
 
+@Epic("Get data cases")
+@Feature("Get data")
 public class UserGetTest extends BaseTestCase {
     private final ApiCoreRequests apiCoreRequests = new ApiCoreRequests();
 
+    @Description("This test try to get data by not auth user")
+    @DisplayName("Test negative get data by not auth user")
     @Test
+    @Owner(value = "Анна Синицына")
+    @Severity(value = SeverityLevel.BLOCKER)
     public void testGetUserDataNotAuth() {
         // тест для неавторизованного запроса. В ответ получим только параметр username и проверяем, что нет других параметров
         Response responseUserData = RestAssured
@@ -27,7 +35,11 @@ public class UserGetTest extends BaseTestCase {
         Assertions.assertJsonHasNotField(responseUserData, "email");
     }
 
+    @Description("This test successfully get user data")
+    @DisplayName("Test positive get data")
     @Test
+    @Owner(value = "Анна Синицына")
+    @Severity(value = SeverityLevel.CRITICAL)
     public void testGetUserDetailsAuthAsSameUser() {
         Map<String, String> authData = new HashMap<>();
         authData.put("email", "vinkotov@example.com");
@@ -54,7 +66,11 @@ public class UserGetTest extends BaseTestCase {
     }
 
     //HOMEWORK
+    @Description("This test try to get user data by another auth user")
+    @DisplayName("Test negative get data by another auth user")
     @Test
+    @Owner(value = "Анна Синицына")
+    @Severity(value = SeverityLevel.CRITICAL)
     public void testGetUserDetailsAuthAsAnotherUser() {
         //GENERATE USER
         String email = DataGenerator.getRandomEmail();
